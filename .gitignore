@@ -3,3 +3,4 @@ node_modules
 */migrations/*
 *.db
 .env
+yarn-error.log
