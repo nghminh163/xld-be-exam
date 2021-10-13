@@ -15,9 +15,16 @@ export const notFound = (res: Response, message = en.WALLET_NOT_FOUND) => {
   });
 };
 export const success = (res: Response, data, message = en.SUCCESS) => {
-  res.json({
-    statusCode: 200,
-    message,
-    data,
-  });
+  if (data) {
+    res.json({
+      statusCode: 200,
+      message,
+      data,
+    });
+  } else {
+    res.json({
+      statusCode: 200,
+      message,
+    });
+  }
 };
