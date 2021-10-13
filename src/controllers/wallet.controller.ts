@@ -11,7 +11,7 @@ class WalletController {
   public createWallet = async (req: Request, res: Response): Promise<void> => {
     try {
       await WalletValidate.validateAsync(req.body);
-      let data = { ...req.body } as Wallet;
+      const data = { ...req.body } as Wallet;
       await this.prisma.wallet.create({
         data,
       });
