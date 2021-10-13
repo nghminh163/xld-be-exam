@@ -1,7 +1,9 @@
 import 'dotenv/config';
-
 import App from '@/app';
 
-const app = new App([]);
+// Routes
+import WalletRoute from '@routes/wallet.route';
+
+const app = new App([new WalletRoute()]);
 
 app.listen();
