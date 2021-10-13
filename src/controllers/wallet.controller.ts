@@ -4,7 +4,7 @@ import WalletValidate from '@/schemas/wallet.schema';
 import { Wallet } from '@/interfaces/wallet.interface';
 import web3 from 'web3';
 import en from '@/lang';
-import { badRequest, success } from '@/utils/httpResponse';
+import { badRequest, notFound, success } from '@/utils/httpResponse';
 import _ from 'lodash';
 class WalletController {
   private prisma = new PrismaClient();
@@ -32,7 +32,11 @@ class WalletController {
         const isAddress = web3.utils.isAddress(address);
         if (isAddress) {
           const data = await this.prisma.wallet.findFirst({ where: { wallet_address: address } });
-          res.send(data);
+          if (data) {
+            success(res, data);
+          } else {
+            notFound(res);
+          }
         } else {
           badRequest(res, en.ADDRESS_ETH_INVALID);
         }
@@ -40,8 +44,29 @@ class WalletController {
       }
     } catch (e) {
       badRequest(res, e?.message);
-    } finally {
-      badRequest(res);
+    }
+  };
+
+  public updateWallet = async (req: Request, res: Response): Promise<void> => {
+    try {
+      await WalletValidate.validateAsync(req.body);
+      let data = { ...req.body } as Wallet;
+      const response = await this.prisma.wallet.update({
+        where: {
+          wallet_address: data.wallet_address,
+        },
+        data: {
+          balance: data.balance,
+        },
+      });
+      success(res, response);
+      return;
+    } catch (err) {
+      if (err?.code === 'P2025') {
+        notFound(res);
+      } else {
+        badRequest(res, err?.message);
+      }
     }
   };
 }

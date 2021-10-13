@@ -3,4 +3,5 @@ export default {
   BAD_REQUEST: 'Bad Request',
   WALLET_NOT_UNIQUE: `"wallet_address" is not unique`,
   SUCCESS: 'Successful',
+  WALLET_NOT_FOUND: `"wallet_address" is not found`,
 };
