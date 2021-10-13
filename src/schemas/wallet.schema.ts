@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import web3 from 'web3';
+import en from '@/lang';
 
 export default Joi.object({
   wallet_address: Joi.string()
@@ -12,7 +13,7 @@ export default Joi.object({
       return value;
     })
     .messages({
-      'address.invalid': `"wallet_address" is invalid with Ethereum address`,
+      'address.invalid': en.ADDRESS_ETH_INVALID,
     }),
   balance: Joi.number().required(),
 });
