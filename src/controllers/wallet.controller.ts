@@ -38,7 +38,7 @@ class WalletController {
             notFound(res);
           }
         } else {
-          badRequest(res, en.ADDRESS_ETH_INVALID);
+          badRequest(res, en.ADDRESS_ETH_INVALID(address));
         }
         return;
       }
@@ -67,6 +67,28 @@ class WalletController {
       } else {
         badRequest(res, err?.message);
       }
+    }
+  };
+
+  public deleteWallet = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const address = req.body?.wallet_address;
+      if (_.isString(address)) {
+        const isAddress = web3.utils.isAddress(address);
+        if (isAddress) {
+          const data = await this.prisma.wallet.delete({ where: { wallet_address: address } });
+          if (data) {
+            success(res, undefined, en.WALLET_DELETED(address));
+          } else {
+            notFound(res);
+          }
+        } else {
+          badRequest(res, en.ADDRESS_ETH_INVALID(address));
+        }
+        return;
+      }
+    } catch (e) {
+      badRequest(res, e?.message);
     }
   };
 }

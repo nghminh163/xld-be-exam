@@ -13,7 +13,7 @@ export default Joi.object({
       return value;
     })
     .messages({
-      'address.invalid': en.ADDRESS_ETH_INVALID,
+      'address.invalid': en.ADDRESS_ETH_INVALID_NO_PARAM,
     }),
   balance: Joi.number().required(),
 });
