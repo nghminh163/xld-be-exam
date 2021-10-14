@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "c7ae07b3-450c-4aac-a2cc-35bb446c9ebe",
+		"name": "Exam BE Xload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Wallet",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/wallet/read?wallet_address=0x2155d76e375b8eba0f06370f67f570bd6291e9ae",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"wallet",
+						"read"
+					],
+					"query": [
+						{
+							"key": "wallet_address",
+							"value": "0x2155d76e375b8eba0f06370f67f570bd6291e9ae"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wallet_address\": \"0x2155d76e375b8eba0f06370f67f570bd6291e9ae\",\n    \"balance\": 0.1111\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/wallet/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"wallet",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Wallet",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wallet_address\": \"0x2155d76e375b8eba0f06370f67f570bd6291e9ae\",\n    \"balance\": 0.5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/wallet/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"wallet",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Wallet",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"wallet_address\": \"0x2155d76e375b8eba0f06370f67f570bd6291e9ae\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://nghminh163-xld-test.herokuapp.com/wallet/delete",
+					"protocol": "https",
+					"host": [
+						"nghminh163-xld-test",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"wallet",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
