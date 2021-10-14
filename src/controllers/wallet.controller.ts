@@ -76,19 +76,19 @@ class WalletController {
       if (_.isString(address)) {
         const isAddress = web3.utils.isAddress(address);
         if (isAddress) {
-          const data = await this.prisma.wallet.delete({ where: { wallet_address: address } });
-          if (data) {
-            success(res, undefined, en.WALLET_DELETED(address));
-          } else {
-            notFound(res);
-          }
+          await this.prisma.wallet.delete({ where: { wallet_address: address } });
+          success(res, undefined, en.WALLET_DELETED(address));
         } else {
           badRequest(res, en.ADDRESS_ETH_INVALID(address));
         }
         return;
       }
     } catch (e) {
-      badRequest(res, e?.message);
+      if (e?.code === 'P2025') {
+        notFound(res);
+      } else {
+        badRequest(res, e?.message);
+      }
     }
   };
 }
